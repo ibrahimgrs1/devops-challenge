@@ -4,7 +4,6 @@ services:
   todo-app:
     image: host.docker.internal:5000/todo-app:${IMAGE_TAG:-latest}
     restart: always
-    # Uygulama artık doğrudan dışarı açılmıyor, Nginx üzerinden konuşacak
     expose:
       - "80"
     healthcheck:
@@ -12,26 +11,23 @@ services:
       interval: 10s
       retries: 3
 
-  # BONUS: Zero-Downtime & SSL Proxy
+  # GÜNCELLENEN KISIM: Volumes silindi, build eklendi
   nginx:
-    image: nginx:alpine
+    build:
+      context: .
+      dockerfile: Dockerfile.proxy
     container_name: nginx-proxy
     ports:
       - "443:443"
-    volumes:
-      - ./nginx.conf:/etc/nginx/nginx.conf:ro
-      - ./server.crt:/etc/nginx/certs/server.crt:ro
-      - ./server.key:/etc/nginx/certs/server.key:ro
     depends_on:
       todo-app:
         condition: service_healthy
 
-  # BONUS: Basit Monitoring (Port 8080)
   cadvisor:
     image: gcr.io/cadvisor/cadvisor:latest
     container_name: cadvisor
     ports:
-      - "8081:8080" 
+      - "8081:8080"
     volumes:
       - /:/rootfs:ro
       - /var/run:/var/run:ro
