@@ -64,6 +64,13 @@ Bash
 docker-compose up -d --build
 Uygulamaya https://localhost üzerinden güvenli şekilde erişebilirsiniz.
 
+**📦 Örnek Uygulamanın Çalıştırılması**
+Sistemdeki Todo uygulaması, CI/CD pipeline'ı tarafından Docker imajı olarak paketlenip yayınlanmaktadır. 
+Uygulamayı pipeline dışında, yerel ortamınızda geliştirici modunda test etmek isterseniz:
+1. `todo-app` (veya uygulamanızın klasörü) dizinine girin.
+2. Bağımlılıkları kurmak için `npm install` komutunu çalıştırın.
+3. Uygulamayı başlatmak için `npm start` komutunu kullanın.
+
 🛠️ Karşılaşılan Problemler ve Çözümleri
 Geliştirme sürecinde "Kapalı Ağ" simülasyonu kaynaklı karşılaşılan sorunlar şu şekilde çözülmüştür:
 
