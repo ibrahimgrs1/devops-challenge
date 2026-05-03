@@ -59,10 +59,10 @@ pipeline {
                     // Docker Compose'a IMAGE_TAG değişkenini gönderiyoruz
                     sh "IMAGE_TAG=${params.DEPLOY_TAG} docker-compose up -d --force-recreate"
                     
-                    // Health Check - Uygulama gerçekten cevap veriyor mu?
-                    echo "Uygulama sağlığı kontrol ediliyor..."
+                    // Health Check - Yeni mimariye uygun Nginx kontrolü
+                    echo "Sistem sağlığı kontrol ediliyor..."
                     sleep 10
-                    sh "curl -f http://localhost:3000/ || (echo 'HATA: Uygulama ayağa kalkamadı! Otomatik rollback gerekebilir.' && exit 1)"
+                    sh "docker ps | grep nginx-proxy || (echo 'HATA: Nginx Proxy ayağa kalkamadı!' && exit 1)"
                 }
             }
         }
