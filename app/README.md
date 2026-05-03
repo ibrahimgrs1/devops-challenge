@@ -17,7 +17,7 @@ In the project directory, you can run:
 yarn && yarn start
 ```
 
-More information about the available commands can be found in the [Contributing](CONTRIBUTING.md) guide.
+More information about the available commands can be found in the [Contributing](CONTRIBUTING.md) guides.
 
 ## Learn More
 
