@@ -27,10 +27,7 @@ function App(props) {
 
   function toggleTaskCompleted(id) {
     const updatedTasks = tasks.map((task) => {
-      // if this task has the same ID as the edited task
       if (id === task.id) {
-        // use object spread to make a new obkect
-        // whose `completed` prop has been inverted
         return { ...task, completed: !task.completed };
       }
       return task;
@@ -45,12 +42,9 @@ function App(props) {
 
   function editTask(id, newName) {
     const editedTaskList = tasks.map((task) => {
-      // if this task has the same ID as the edited task
       if (id === task.id) {
-        // Copy the task and update its name
         return { ...task, name: newName };
       }
-      // Return the original task if it's not the edited task
       return task;
     });
     setTasks(editedTaskList);
@@ -79,10 +73,18 @@ function App(props) {
     />
   ));
 
+  // --- ÖZEL HATA BOMBASI (STAY CHALLENGE) ---
   function addTask(name) {
+    // Eğer girilen metin "todo" kelimesini içeriyorsa (büyük/küçük harf duyarsız)
+    if (name.toLowerCase().includes("todo")) {
+      console.error("Kritik Hata: 'TODO' ifadesi yasaklanmıştır.");
+      throw new Error("Özel Hata Tetiklendi: Proje kuralları gereği içinde 'TODO' geçen görevler eklenemez!");
+    }
+
     const newTask = { id: "todo-" + nanoid(), name: name, completed: false };
     setTasks([...tasks, newTask]);
   }
+  // ------------------------------------------
 
   const tasksNoun = taskList.length !== 1 ? "tasks" : "task";
   const headingText = `${taskList.length} ${tasksNoun} remaining`;
